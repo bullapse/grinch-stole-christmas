@@ -10,7 +10,7 @@ $(document).ready(function() {
 
     // set the cell width
     var cell = 20;
-    var numPresents = 10;
+    // var numPresents = 10;
     var direction;
     var present;
     var score;
@@ -20,9 +20,7 @@ $(document).ready(function() {
     function start() {
         direction = "right";
         // create the grinch
-        grinch = [];
-        grinch.push({x:1, y:0});
-        present = [];
+        create_grinch();
         // for (var i = 0; i < numPresents; i++)
         drop_present();
 
@@ -34,6 +32,14 @@ $(document).ready(function() {
     }
     start();
 
+    function create_grinch() {
+        var length = 5;
+        grinch = []
+        for (var i = length-1; i >= 0; i--) {
+            var newPresent = {x : i, y : 0};
+            grinch.push(newPresent)
+        }
+    }
 
     function drop_present() {
         // drop a present on the map
@@ -55,17 +61,21 @@ $(document).ready(function() {
         var newx = grinch[0].x;
         var newy = grinch[0].y;
 
-        switch (direction) {
-            case "right":
-                newx++;
-            case "left":
-                newx--;
-            case "up":
-                newy--;
-            case "down":
-                newy++;
-        }
+        // switch (direction) {
+        //     case "right":
+        //         newx++;
+        //     case "left":
+        //         newx--;
+        //     case "up":
+        //         newy--;
+        //     case "down":
+        //         newy++;
+        // }
 
+        if(direction == "right") newx++;
+		else if(direction == "left") newx--;
+		else if(direction == "up") newy--;
+		else if(direction == "down") newy++;
         /* Add end cases
          * 1) the grinch ran into the wall
          * 2) the grinch ran into his own presents
@@ -103,11 +113,11 @@ $(document).ready(function() {
          draw_cell(present.x, present.y, "present");
          //}
          var score_text = "Presents Stolen: " + score;
-         ctx.fillStyle(score_text, 5, h-5);
+         ctx.fillText(score_text, 5, h-5);
     }
 
     function draw_cell(x, y, type) {
-        var image = new Image();
+        image = new Image();
         if (type == "grinch")
             image.src = "grinch.jpg"
         else
@@ -127,9 +137,9 @@ $(document).ready(function() {
     //Lets add the keyboard controls now
     $(document).keydown(function(e){
         var key = e.which;
-        if(key == "37" && d != "right") d = "left";
-        else if(key == "38" && d != "down") d = "up";
-        else if(key == "39" && d != "left") d = "right";
-        else if(key == "40" && d != "up") d = "down";
+        if(key == "37" && direction != "right") direction = "left";
+        else if(key == "38" && direction != "down") direction = "up";
+        else if(key == "39" && direction != "left") direction = "right";
+        else if(key == "40" && direction != "up") direction = "down";
     })
 })

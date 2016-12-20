@@ -9,11 +9,13 @@ $(document).ready(function() {
     var h = $("#canvas").height();
 
     // set the cell width
-    var cell = 20;
+    var cell = 30;
     // var numPresents = 10;
     var direction;
     var present;
-    var score;
+    var score = 0;
+    var highscore = 0;
+    var speed = 144;
 
     var grinch
 
@@ -28,7 +30,7 @@ $(document).ready(function() {
         score = 0;
 
         if(typeof game_loop != "undefined") clearInterval(game_loop);
-        game_loop = setInterval(draw, 120);
+        game_loop = setInterval(draw, speed);
     }
     start();
 
@@ -61,17 +63,6 @@ $(document).ready(function() {
         var newx = grinch[0].x;
         var newy = grinch[0].y;
 
-        // switch (direction) {
-        //     case "right":
-        //         newx++;
-        //     case "left":
-        //         newx--;
-        //     case "up":
-        //         newy--;
-        //     case "down":
-        //         newy++;
-        // }
-
         if(direction == "right") newx++;
 		else if(direction == "left") newx--;
 		else if(direction == "up") newy--;
@@ -80,7 +71,7 @@ $(document).ready(function() {
          * 1) the grinch ran into the wall
          * 2) the grinch ran into his own presents
         */
-        if (newx == -1 || newx == w/cell || newy == -1 || newy == h/cell || check_collision(newx, newy, grinch)) {
+        if (newx == -1 || newx >= w/cell || newy == -1 || newy >= h/cell || check_collision(newx, newy, grinch)) {
             start();
             // TODO add start screen to show score
             return;
@@ -93,6 +84,7 @@ $(document).ready(function() {
          if (newx == present.x && newy == present.y) {
              var lastPresent = {x : newx, y : newy};
              score++;
+            // console.log("Score: " + score)
              drop_present();
          } else {
              var lastPresent = grinch.pop()
@@ -108,20 +100,26 @@ $(document).ready(function() {
          for (var i = 1; i < grinch.length; i++) {
              var block = grinch[i];
              draw_cell(block.x, block.y, "present");
+             console.log("x: " + block.x + "y: " + block.y)
          }
          //for (var i = 0; i < numPresents; i++) {
          draw_cell(present.x, present.y, "present");
          //}
-         var score_text = "Presents Stolen: " + score;
-         ctx.fillText(score_text, 5, h-5);
+         //  Update the Score
+         if (score > highscore) {
+            highscore = score;
+         }
+         $('#highscore').text('High Score: ' + highscore)
+         var score_text = "Presents Stolen: " + score
+         $('#score').text(score_text)
     }
 
     function draw_cell(x, y, type) {
         image = new Image();
         if (type == "grinch")
-            image.src = "grinch.jpg"
+            image.src = "css/images/grinch.jpg"
         else
-            image.src = "present.png"
+            image.src = "css/images/present.png"
         ctx.drawImage(image, x*cell, y*cell, cell, cell)
     }
 

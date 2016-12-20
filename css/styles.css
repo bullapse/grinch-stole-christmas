@@ -1,0 +1,51 @@
+h1 {
+    position : relative;
+    color : green;
+    font-size: 48pt;
+    font-style : oblique;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+
+.grinchtitle {
+    display : inline-block;
+    margin : auto;
+    width : 95%;
+}
+
+canvas {
+    display : block;
+    margin : auto;
+    margin-top: 2%;
+    margin-bottom: 5%;
+    border : 3pt solid black
+}
+
+#scorediv {
+    margin-top: 4%;
+    color : olive;
+    font-style: oblique;
+    font-size: 15pt;
+    display : block;
+    text-align: center
+}
+
+.cscore {
+    margin : auto;
+    width: 100%;
+
+}
+
+#mytitle {
+    display: inline-flex;
+    margin : auto;
+    width : 100%;
+    text-align : center;
+    border : 3pt solid olive;
+}
+
+body {
+    padding-top: 3%;
+    margin : auto;
+    width : 75%;
+}

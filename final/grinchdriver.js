@@ -8,46 +8,31 @@ $(document).ready(function() {
     var w = $("#canvas").width();
     var h = $("#canvas").height();
 
-
+    // set the cell width
+    var cell = 30;
     // var numPresents = 10;
     var direction;
     var present;
     var score = 0;
-
-    // Hack the highscore to a very big number to cheat
-    // TODO STEP #6 (If you made it here, then you're a coder. Coders are cool! :P)
     var highscore = 0;
-
-    // Change the speed to 144
-    // TODO STEP #5
-    var speed = 30;
-
-    // Change the size of cell to make the grinch larger
-    // SET cell to 30
-    var cell = 10;
+    var speed = 144;
 
     var grinch
 
     function start() {
         direction = "right";
+        // create the grinch
+        create_grinch();
+        // for (var i = 0; i < numPresents; i++)
+        drop_present();
 
-        // First we need to create the grinch
-        // TODO STEP #1
-
-        // Next we need to drop a present on the game board
-        // TODO STEP #2
-
-        // Set the starting score to 0
-        // TODO STEP #3
-
+        // Set the initial score to 0
+        score = 0;
 
         if(typeof game_loop != "undefined") clearInterval(game_loop);
         game_loop = setInterval(draw, speed);
     }
-
-    // Now we need to run the program using our start function
-    // TODO STEP #4
-
+    start();
 
     function create_grinch() {
         var length = 5;
@@ -64,6 +49,7 @@ $(document).ready(function() {
 			x: Math.round(Math.random()*(w-cell)/cell),
 			y: Math.round(Math.random()*(h-cell)/cell),
 		}
+        // present.push(newPresent);
     }
 
     function draw() {
@@ -94,15 +80,18 @@ $(document).ready(function() {
         /* Have the grinch steal a present
          * eat and drop a present or keep the grinch moving
          */
+        //  for (var i = 0; i < numPresents; i++) {
          if (newx == present.x && newy == present.y) {
              var lastPresent = {x : newx, y : newy};
              score++;
+            // console.log("Score: " + score)
              drop_present();
          } else {
              var lastPresent = grinch.pop()
              lastPresent.x = newx;
              lastPresent.y = newy;
          }
+        //  }
 
          grinch.unshift(lastPresent)
 
@@ -113,8 +102,9 @@ $(document).ready(function() {
              draw_cell(block.x, block.y, "present");
              console.log("x: " + block.x + "y: " + block.y)
          }
+         //for (var i = 0; i < numPresents; i++) {
          draw_cell(present.x, present.y, "present");
-
+         //}
          //  Update the Score
          if (score > highscore) {
             highscore = score;

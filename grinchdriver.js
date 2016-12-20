@@ -15,30 +15,31 @@ $(document).ready(function() {
     var score = 0;
 
     // Hack the highscore to a very big number to cheat
-    // TODO STEP #6 (If you made it here, then you're a coder. Coders are cool! :P)
+    // TODO STEP #7 (If you made it here, then you're a coder. Coders are cool! :P)
     var highscore = 0;
 
     // Change the speed to 144
-    // TODO STEP #5
-    var speed = 30;
+    // TODO STEP #5 This will slow dows the speed
+    var speed = 300;
 
     // Change the size of cell to make the grinch larger
     // SET cell to 30
+    // TODO STEP #6 (This will make the grinch and presents larger)
     var cell = 10;
 
-    var grinch
+    var grinch;
 
     function start() {
         direction = "right";
 
         // First we need to create the grinch
-        // TODO STEP #1
+        // TODO STEP #1 (Does the game work yet? Try it by double clicking index.html file.)
 
         // Next we need to drop a present on the game board
-        // TODO STEP #2
+        // TODO STEP #2 (Does the game work yet? Try it by refreshing the index.html file in the browser.)
 
         // Set the starting score to 0
-        // TODO STEP #3
+        // TODO STEP #3 (Does teh game work yet? Nope.)
 
 
         if(typeof game_loop != "undefined") clearInterval(game_loop);
@@ -46,7 +47,8 @@ $(document).ready(function() {
     }
 
     // Now we need to run the program using our start function
-    // TODO STEP #4
+    // TODO STEP #4 (Does the game work? Yes! Is the grinch moving fast or slow?)
+    // call start()
 
 
     function create_grinch() {
